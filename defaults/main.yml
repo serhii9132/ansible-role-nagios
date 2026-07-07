@@ -1,15 +1,22 @@
-nagios_admin_password: "nagios"
-nagios_postfix_email: ""
-nagios_postfix_gmail_pass: ""
-nagios_email_contact_notify: ""
+nagios_admin_password: "nagios"             # Password for the Nagios web interface (nagiosadmin)
 
-nagios_client_hostname: generic_host
-nagios_client_ip: "10.10.0.1"
+nagios_postfix_email: ""                    # Sender email address used by Postfix
+nagios_postfix_gmail_pass: ""               # App password for Gmail SMTP relay
+nagios_email_contact_notify: ""             # Recipient email address for Nagios alerts
 
-nagios_service_check_interval: 5
+# Global monitoring thresholds
+nagios_service_check_interval: 5            # Default interval (in minutes) between service checks
 
-nagios_ping_ms_warn_threshold: 100
-nagios_ping_loss_warn_threshold: 20
+nagios_ping_ms_warn_threshold: 100          # Ping RTT (ms) threshold for WARNING state
+nagios_ping_loss_warn_threshold: 20         # Ping packet loss (%) threshold for WARNING state
 
-nagios_ping_ms_crit_threshold: 250
-nagios_ping_loss_crit_threshold: 50
+nagios_ping_ms_crit_threshold: 250          # Ping RTT (ms) threshold for CRITICAL state
+nagios_ping_loss_crit_threshold: 50         # Ping packet loss (%) threshold for CRITICAL state
+
+# Monitored nodes configuration
+nagios_clients:                             # List of target nodes to monitor
+  - hostname: "server-01"                   # Hostname of the client
+    ip: "10.10.0.10"                        # IP address of the client
+  - hostname: "server-02"
+    ip: "10.10.0.20"
+    check_interval: 3                       # Optional: Override default check_interval for this specific host
