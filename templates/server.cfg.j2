@@ -1,0 +1,31 @@
+define host {
+    use                     linux-server
+    host_name               {{ nagios_client_hostname }}
+    alias                   {{ nagios_client_hostname }}
+    address                 {{ nagios_client_ip }}
+    hostgroups              linux-servers
+}
+
+define service {
+    use                     generic-service
+    host_name               {{ nagios_client_hostname }}
+    service_description     PING
+    check_command           check_ping!{{ nagios_ping_ms_warn_threshold }},{{ nagios_ping_loss_warn_threshold }}%!{{ nagios_ping_ms_crit_threshold }},{{ nagios_ping_loss_crit_threshold }}%
+    check_interval          {{ nagios_service_check_interval }}
+}
+
+define service {
+    use                     generic-service         
+    host_name               {{ nagios_client_hostname }}
+    service_description     Current Load
+    check_command           check_nrpe!check_load
+    check_interval          {{ nagios_service_check_interval }}
+}
+
+define service {
+    use                     generic-service
+    host_name               {{ nagios_client_hostname }}
+    service_description     Root Partition
+    check_command           check_nrpe!check_disk
+    check_interval          {{ nagios_service_check_interval }}
+}

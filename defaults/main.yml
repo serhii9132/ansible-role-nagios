@@ -1,0 +1,15 @@
+nagios_admin_password: "nagios"
+nagios_postfix_email: ""
+nagios_postfix_gmail_pass: ""
+nagios_email_contact_notify: ""
+
+nagios_client_hostname: generic_host
+nagios_client_ip: "10.10.0.1"
+
+nagios_service_check_interval: 5
+
+nagios_ping_ms_warn_threshold: 100
+nagios_ping_loss_warn_threshold: 20
+
+nagios_ping_ms_crit_threshold: 250
+nagios_ping_loss_crit_threshold: 50

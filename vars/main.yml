@@ -1,0 +1,7 @@
+__nagios_packages:
+ - nagios4
+ - nagios-nrpe-plugin
+ - postfix
+ - libsasl2-modules
+
+__nagios_postfix_path_auth_file: /etc/postfix/sasl_passwd

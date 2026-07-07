@@ -1,0 +1,27 @@
+---
+- name: Create sasl_passwd for Postfix
+  ansible.builtin.lineinfile:
+    create: true
+    path: "{{ __nagios_postfix_path_auth_file }}"
+    line: "[smtp.gmail.com]:587 {{ nagios_postfix_email }}:{{ nagios_postfix_gmail_pass }}"
+    owner: root
+    group: root
+    mode: '600'
+
+- name: Create sasl_passwd.db
+  ansible.builtin.command:
+    cmd: postmap {{ __nagios_postfix_path_auth_file }}
+  changed_when: true
+
+- name: Configure main.cf
+  ansible.builtin.blockinfile:
+    path: /etc/postfix/main.cf
+    block: |
+      relayhost = [smtp.gmail.com]:587
+      smtp_use_tls = yes
+      smtp_sasl_auth_enable = yes
+      smtp_sasl_password_maps = hash:{{ __nagios_postfix_path_auth_file }}
+      smtp_sasl_security_options = noanonymous
+      smtp_sasl_tls_security_options = noanonymous
+  notify:
+    - Restart Postfix

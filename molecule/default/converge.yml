@@ -1,0 +1,8 @@
+---
+- name: Converge
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: "Include ansible-role-nagios"
+      ansible.builtin.include_role:
+        name: "../../../ansible-role-nagios/" # noqa: role-name

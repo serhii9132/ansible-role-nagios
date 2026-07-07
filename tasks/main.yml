@@ -1,0 +1,11 @@
+---
+- name: Install dependent packages
+  ansible.builtin.apt:
+    update_cache: true
+    name: "{{ __nagios_packages }}"
+
+- name: Import nagios.yml
+  ansible.builtin.import_tasks: nagios.yml
+
+- name: Import postfix.yml
+  ansible.builtin.import_tasks: postfix.yml
