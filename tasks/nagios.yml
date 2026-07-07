@@ -27,13 +27,15 @@
     group: root
     mode: '644'
 
-- name: Apply server.cfg from template
+- name: Apply config files for clients
   ansible.builtin.template:
     src: server.cfg.j2
-    dest: /etc/nagios4/conf.d/server.cfg
+    dest: "/etc/nagios4/conf.d/{{ item.hostname }}.cfg"
     owner: root
     group: root
-    mode: '644'
+    mode: '0644'
+  loop: "{{ nagios_clients }}"
+  notify: Restart Nagios
 
 - name: Apply contacts.cfg from template
   ansible.builtin.template:

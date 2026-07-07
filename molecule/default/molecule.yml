@@ -6,7 +6,7 @@ driver:
     full: true
 
 platforms:
-  - name: "molecule-${os}"
+  - name: "nagios-${os}"
     template_name: ${os}-tmp
     ipconfig:
       ipconfig0: 'ip=dhcp'
